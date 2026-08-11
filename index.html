@@ -2,27 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Active Project Work Order Form</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 20px; }
-        .form-container { max-width: 650px; background: #fff; margin: 0 auto; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-top: 5px solid #2b579a; }
-        h1 { font-size: 24px; margin-bottom: 5px; color: #2b579a; text-align: center; }
-        h2 { font-size: 14px; margin-top: 0; margin-bottom: 25px; color: #666; text-align: center; letter-spacing: 1px; }
-        .section-header { font-size: 16px; font-weight: bold; margin: 20px 0 10px; padding-bottom: 5px; border-bottom: 2px solid #e0e0e0; color: #444; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f4f6f9; color: #333; margin: 0; padding: 12px; }
+        .form-container { max-width: 650px; background: #fff; margin: 0 auto; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); border-top: 5px solid #2b579a; }
+        h1 { font-size: 20px; margin-bottom: 5px; color: #2b579a; text-align: center; }
+        h2 { font-size: 13px; margin-top: 0; margin-bottom: 20px; color: #666; text-align: center; letter-spacing: 0.5px; }
+        .section-header { font-size: 15px; font-weight: bold; margin: 20px 0 10px; padding-bottom: 5px; border-bottom: 2px solid #e0e0e0; color: #444; }
         .input-group { margin-bottom: 15px; }
         label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 14px; }
-        select, input[type="text"] { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background-color: #fffffe; font-size: 14px; }
-        .menu-row { display: flex; align-items: center; justify-content: space-between; padding: 10px; margin-bottom: 8px; background: #f9f9f9; border-radius: 4px; border-left: 3px solid #ccc; }
+        select, input[type="text"], input[type="number"], input[type="date"] { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; background-color: #fffffe; font-size: 16px; }
+        .menu-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 12px; margin-bottom: 8px; background: #f9f9f9; border-radius: 4px; border-left: 3px solid #ccc; }
         .menu-row.selected { border-left-color: #2b579a; background: #f0f4f8; }
-        .checkbox-container { display: flex; align-items: center; }
-        .checkbox-container input { margin-right: 10px; transform: scale(1.1); cursor: pointer; }
-        .qty-box { width: 60px; padding: 5px; text-align: center; border: 1px solid #ccc; border-radius: 4px; }
-        .financial-summary { background: #eef2f7; padding: 20px; border-radius: 6px; margin-top: 25px; border: 1px solid #d2dbe5; }
-        .summary-line { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; font-weight: 600; }
-        .summary-line.total { font-size: 18px; color: #2b579a; border-bottom: 2px dashed #2b579a; padding-bottom: 8px; margin-bottom: 12px; }
-        .notice-block { font-size: 11px; color: #666; font-style: italic; background: #f5f5f5; padding: 12px; border-radius: 4px; border: 1px solid #e0e0e0; margin-top: 20px;}
-        .submit-btn { width: 100%; padding: 14px; background: #2b579a; border: none; color: white; font-weight: bold; font-size: 16px; border-radius: 4px; cursor: pointer; margin-top: 20px; }
+        .checkbox-container { display: flex; align-items: center; flex: 1; min-width: 200px; }
+        .checkbox-container input { margin-right: 12px; min-width: 20px; min-height: 20px; cursor: pointer; }
+        .checkbox-container label { font-size: 14px; line-height: 1.3; cursor: pointer; margin-bottom: 0; }
+        .qty-container { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+        .qty-box { width: 70px !important; padding: 8px !important; text-align: center; border: 1px solid #ccc; border-radius: 4px; }
+        .financial-summary { background: #eef2f7; padding: 16px; border-radius: 6px; margin-top: 25px; border: 1px solid #d2dbe5; }
+        .summary-line { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; font-weight: 600; }
+        .summary-line.address-line { color: #555; border-bottom: 1px solid #d2dbe5; padding-bottom: 8px; margin-bottom: 12px; font-weight: normal; }
+        .summary-line.total { font-size: 16px; color: #2b579a; border-bottom: 2px dashed #2b579a; padding-bottom: 8px; margin-bottom: 12px; }
+        .summary-value { text-align: right; }
+        
+        /* Signature Block Styling */
+        .signature-section { margin-top: 25px; padding: 15px; background: #fafafa; border: 1px dashed #ccc; border-radius: 6px; }
+        .signature-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 10px; }
+        .signature-input-font { font-family: 'Brush Script MT', 'Dancing Script', cursive, sans-serif; font-size: 22px !important; color: #1e3f7a; }
+
+        .notice-block { font-size: 11px; color: #666; font-style: italic; background: #f5f5f5; padding: 12px; border-radius: 4px; border: 1px solid #e0e0e0; margin-top: 20px; line-height: 1.4; }
+        .submit-btn { width: 100%; padding: 16px; background: #2b579a; border: none; color: white; font-weight: bold; font-size: 16px; border-radius: 4px; cursor: pointer; margin-top: 20px; }
         .submit-btn:hover { background: #1e3f7a; }
+
+        @media (min-width: 480px) {
+            body { padding: 20px; }
+            .form-container { padding: 30px; }
+            h1 { font-size: 24px; }
+            h2 { font-size: 14px; }
+            .summary-line { font-size: 14px; }
+            .summary-line.total { font-size: 18px; }
+            .signature-grid { grid-template-columns: 2fr 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -36,9 +58,9 @@
             <label for="property">Property Selected</label>
             <select id="property" required onchange="calculateTotals()">
                 <option value="" disabled selected>-- Select Property --</option>
-                <option value="HumanKind Villas Portfolio">HumanKind Villas Portfolio (829/917 N Market St)</option>
-                <option value="The Studios at HumanKind">The Studios at HumanKind (1011 N Topeka Ave)</option>
-                <option value="The HumanKind Inn">The HumanKind Inn (320 E Central Ave)</option>
+                <option value="HumanKind Villas Portfolio" data-address="829/917 N Market St">HumanKind Villas Portfolio</option>
+                <option value="The Studios at HumanKind" data-address="1011 N Topeka Ave">The Studios at HumanKind</option>
+                <option value="The HumanKind Inn" data-address="320 E Central Ave">The HumanKind Inn</option>
             </select>
         </div>
 
@@ -50,42 +72,65 @@
         <div class="section-header">Base Apartment Turn Package (Select One)</div>
         <div class="menu-row" id="row-base1">
             <div class="checkbox-container">
-                <input type="radio" name="basePackage" id="base1" value="3660" onchange="calculateTotals()">
-                <label for="base1">Module A: Standard 1-Bedroom Turn ($3,660.00)</label>
+                <input type="radio" name="basePackage" id="base1" value="3660" required onchange="calculateTotals()">
+                <label for="base1">Module A: Standard 1-Bedroom Turn</label>
             </div>
         </div>
         <div class="menu-row" id="row-base2">
             <div class="checkbox-container">
-                <input type="radio" name="basePackage" id="base2" value="4880" onchange="calculateTotals()">
-                <label for="base2">Module B: Standard 2-Bedroom Turn ($4,880.00)</label>
+                <input type="radio" name="basePackage" id="base2" value="4880" required onchange="calculateTotals()">
+                <label for="base2">Module B: Standard 2-Bedroom Turn</label>
             </div>
         </div>
 
         <div class="section-header">Select Add-Ons Ordered (Labor Only)</div>
-        <div class="menu-row" id="row-addon1"><div class="checkbox-container"><input type="checkbox" id="addon1" value="2050" onchange="calculateTotals()"><label for="addon1">Kitchen Cabinet Removal & Replace ($2,050.00)</label></div></div>
-        <div class="menu-row" id="row-addon2"><div class="checkbox-container"><input type="checkbox" id="addon2" value="375" onchange="calculateTotals()"><label for="addon2">Bathroom Vanity Swap ($375.00)</label></div></div>
-        <div class="menu-row" id="row-addon3"><div class="checkbox-container"><input type="checkbox" id="addon3" value="75" onchange="calculateTotals()"><label for="addon3">Bathroom Mirror Replacement ($75.00)</label></div></div>
+        <div class="menu-row" id="row-addon1"><div class="checkbox-container"><input type="checkbox" id="addon1" value="2050" onchange="calculateTotals()"><label for="addon1">Kitchen Cabinet Removal & Replace</label></div></div>
+        <div class="menu-row" id="row-addon2"><div class="checkbox-container"><input type="checkbox" id="addon2" value="375" onchange="calculateTotals()"><label for="addon2">Bathroom Vanity Swap</label></div></div>
+        <div class="menu-row" id="row-addon3"><div class="checkbox-container"><input type="checkbox" id="addon3" value="75" onchange="calculateTotals()"><label for="addon3">Bathroom Mirror Replacement</label></div></div>
         
         <div class="menu-row" id="row-addon4">
-            <div class="checkbox-container"><input type="checkbox" id="addon4" value="125" onchange="calculateTotals()"><label for="addon4">Ceiling Fan Swap-Out ($125.00/ea)</label></div>
-            <div>Quantity: <input type="number" id="qty-addon4" class="qty-box" value="1" min="1" onchange="calculateTotals()"></div>
+            <div class="checkbox-container"><input type="checkbox" id="addon4" value="125" onchange="calculateTotals()"><label for="addon4">Ceiling Fan Swap-Out</label></div>
+            <div class="qty-container">Quantity: <input type="number" id="qty-addon4" class="qty-box" value="1" min="1" onchange="calculateTotals()" oninput="calculateTotals()"></div>
         </div>
 
         <div class="menu-row" id="row-addon5">
-            <div class="checkbox-container"><input type="checkbox" id="addon5" value="75" onchange="calculateTotals()"><label for="addon5">Standard Light Fixture Swap ($75.00/ea)</label></div>
-            <div>Quantity: <input type="number" id="qty-addon5" class="qty-box" value="1" min="1" onchange="calculateTotals()"></div>
+            <div class="checkbox-container"><input type="checkbox" id="addon5" value="75" onchange="calculateTotals()"><label for="addon5">Standard Light Fixture Swap</label></div>
+            <div class="qty-container">Quantity: <input type="number" id="qty-addon5" class="qty-box" value="1" min="1" onchange="calculateTotals()" oninput="calculateTotals()"></div>
         </div>
 
-        <div class="menu-row" id="row-addon6"><div class="checkbox-container"><input type="checkbox" id="addon6" value="150" onchange="calculateTotals()"><label for="addon6">OTR Microwave/Fan Installation ($150.00)</label></div></div>
+        <div class="menu-row" id="row-addon6"><div class="checkbox-container"><input type="checkbox" id="addon6" value="150" onchange="calculateTotals()"><label for="addon6">OTR Microwave/Fan Installation</label></div></div>
 
         <div class="financial-summary">
-            <div class="summary-line total"><span>Total Estimated Project Value:</span><span id="display-total">$0.00</span></div>
-            <div class="summary-line" style="color: #b22222;"><span>Required Upfront Mobilization Deposit (50%):</span><span id="display-deposit">$0.00</span></div>
-            <div class="summary-line" style="color: #444;"><span>Remaining Progress Balance (Net 30/60 Lag):</span><span id="display-balance">$0.00</span></div>
+            <div class="summary-line address-line">
+                <span>Property Address:</span>
+                <span id="display-address" class="summary-value" style="font-weight: 600;">--</span>
+            </div>
+            <div class="summary-line total"><span>Total Estimated Project Value:</span><span id="display-total" class="summary-value">$0.00</span></div>
+            <div class="summary-line" style="color: #b22222;"><span>Required Upfront Mobilization Deposit (50%):</span><span id="display-deposit" class="summary-value">$0.00</span></div>
+            <div class="summary-line" style="color: #444;"><span>Remaining Progress Balance (Net 30/60 Lag):</span><span id="display-balance" class="summary-value">$0.00</span></div>
+        </div>
+
+        <!-- AUTHORIZATION / SIGNATURE SECTION -->
+        <div class="signature-section">
+            <div class="section-header" style="margin-top: 0;">Authorization & Work Authorization</div>
+            <div class="input-group">
+                <label for="repName">Authorized Representative Name</label>
+                <input type="text" id="repName" placeholder="Full Legal Name" required>
+            </div>
+            <div class="signature-grid">
+                <div class="input-group" style="margin-bottom: 0;">
+                    <label for="signature">Digital Signature (Type Full Name)</label>
+                    <input type="text" id="signature" class="signature-input-font" placeholder="Sign here..." required>
+                </div>
+                <div class="input-group" style="margin-bottom: 0;">
+                    <label for="authDate">Date</label>
+                    <input type="date" id="authDate" required>
+                </div>
+            </div>
         </div>
 
         <div class="notice-block">
-            <strong>PROPRIETARY & VALIDITY NOTICE:</strong> Document valid for 30 calendar days from issuance. Rates expire automatically after September 10, 2026.
+            <strong>PROPRIETARY & VALIDITY NOTICE:</strong> Document valid for 30 calendar days from issuance. Rates expire automatically after September 10, 2026. All work orders conform strictly to the parameters detailed inside our Master Agreement.
         </div>
 
         <button type="submit" class="submit-btn" id="submitBtn">Submit and Transmit Work Order</button>
@@ -93,69 +138,81 @@
 </div>
 
 <script>
-    // LINE 101: PASTE YOUR MAKE.COM OR ZAPIER WEBHOOK URL INSIDE THE QUOTES BELOW
     const WEBHOOK_URL = "YOUR_WEBHOOK_URL_HERE";
 
-    let globalTotal = 0, globalDeposit = 0, globalBalance = 0, globalUnitType = "";
-
     function calculateTotals() {
-        globalTotal = 0;
-        const basePackages = document.getElementsByName('basePackage');
-        basePackages.forEach(pkg => {
-            if (pkg.checked) {
-                globalTotal += parseFloat(pkg.value);
-                globalUnitType = pkg.id === 'base1' ? "1-Bedroom" : "2-Bedroom";
-            }
-        });
+        let total = 0;
+        let unitType = "";
 
-        if (document.getElementById('addon1').checked) globalTotal += 2050;
-        if (document.getElementById('addon2').checked) globalTotal += 375;
-        if (document.getElementById('addon3').checked) globalTotal += 75;
+        const propertySelect = document.getElementById('property');
+        const selectedOption = propertySelect.options[propertySelect.selectedIndex];
+        const address = selectedOption ? selectedOption.getAttribute('data-address') : null;
         
-        if (document.getElementById('addon4').checked) {
-            globalTotal += 125 * (parseInt(document.getElementById('qty-addon4').value) || 1);
-        }
-        if (document.getElementById('addon5').checked) {
-            globalTotal += 75 * (parseInt(document.getElementById('qty-addon5').value) || 1);
-        }
-        if (document.getElementById('addon6').checked) globalTotal += 150;
+        document.getElementById('display-address').innerText = address ? address : '-- Select Property --';
 
-        globalDeposit = globalTotal * 0.50;
-        globalBalance = globalTotal - globalDeposit;
+        const b1 = document.getElementById('base1');
+        const b2 = document.getElementById('base2');
+        if (b1 && b1.checked) { total += 3660; unitType = "1-Bedroom"; }
+        if (b2 && b2.checked) { total += 4880; unitType = "2-Bedroom"; }
 
-        document.getElementById('display-total').innerText = '$' + globalTotal.toFixed(2);
-        document.getElementById('display-deposit').innerText = '$' + globalDeposit.toFixed(2);
-        document.getElementById('display-balance').innerText = '$' + globalBalance.toFixed(2);
+        if (document.getElementById('addon1') && document.getElementById('addon1').checked) total += 2050;
+        if (document.getElementById('addon2') && document.getElementById('addon2').checked) total += 375;
+        if (document.getElementById('addon3') && document.getElementById('addon3').checked) total += 75;
+        
+        if (document.getElementById('addon4') && document.getElementById('addon4').checked) {
+            let q4 = parseInt(document.getElementById('qty-addon4').value) || 1;
+            total += 125 * q4;
+        }
+        if (document.getElementById('addon5') && document.getElementById('addon5').checked) {
+            let q5 = parseInt(document.getElementById('qty-addon5').value) || 1;
+            total += 75 * q5;
+        }
+        if (document.getElementById('addon6') && document.getElementById('addon6').checked) total += 150;
+
+        let deposit = total * 0.50;
+        let balance = total - deposit;
+
+        document.getElementById('display-total').innerText = '$' + total.toFixed(2);
+        document.getElementById('display-deposit').innerText = '$' + deposit.toFixed(2);
+        document.getElementById('display-balance').innerText = '$' + balance.toFixed(2);
 
         const rows = ['base1', 'base2', 'addon1', 'addon2', 'addon3', 'addon4', 'addon5', 'addon6'];
-        rows.forEach(id => {
+        rows.forEach(function(id) {
             const el = document.getElementById(id);
             const row = document.getElementById('row-' + id);
-            if (el && row) el.checked ? row.classList.add('selected') : row.classList.remove('selected');
+            if (el && row) {
+                if (el.checked) {
+                    row.classList.add('selected');
+                } else {
+                    row.classList.remove('selected');
+                }
+            }
         });
     }
 
     document.getElementById('workOrderForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+        const selectedBase = document.querySelector('input[name="basePackage"]:checked');
         
-        if (!globalUnitType) {
-            alert('Selection Error: You must select either a 1-Bedroom or 2-Bedroom Baseline Turn package.');
-            return;
+        if (!selectedBase) {
+            e.preventDefault();
+            alert('Selection Error: You must select a baseline package to authorize a work order.');
+            return false;
         }
+
+        e.preventDefault();
 
         const submitBtn = document.getElementById('submitBtn');
         submitBtn.innerText = "Transmitting to Master Ledger...";
         submitBtn.disabled = true;
 
-        // Compile clean double-entry payload data
-        const payload = {
-            timestamp: new Date().toISOString(),
-            propertyTag: document.getElementById('property').value,
-            unitTag: document.getElementById('unitId').value,
-            unitType: globalUnitType,
-            totalBid: globalTotal,
-            depositRequired: globalDeposit,
-            accountsReceivableLag: globalBalance,
-            cabinetsOrdered: document.getElementById('addon1').checked ? "Yes" : "No",
-            vanityOrdered: document.getElementById('addon2').checked ? "Yes" : "No",
-            mirrorOrdered: document.getElementById('addon3').checked ? "Yes" : "No",
+        let totalVal = parseFloat(document.getElementById('display-total').innerText.replace('$', '')) || 0;
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        calculateTotals();
+        // Set default date picker value to today's date
+        document.getElementById('authDate').valueAsDate = new Date();
+    });
+</script>
+</body>
+</html>
